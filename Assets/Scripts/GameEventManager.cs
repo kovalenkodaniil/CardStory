@@ -41,6 +41,7 @@ public class GameEventManager : MonoBehaviour
         UpgradeSreenCalled += NeedShowUgradeScreen;
         EventFinished += NeedShowMapScreen;
         KnowledgeChanged+= OnKnowledgeChange;
+        PlayerDied += OnPlayerDied;
         _eventManager.EventSelected += OnEventSelected;
         _eventManager.ChallengePicked += OnChallengeSelected;
         _heroPick.HeroPicked += NeedShowMapScreen;
@@ -58,6 +59,7 @@ public class GameEventManager : MonoBehaviour
         UpgradeSreenCalled -= NeedShowUgradeScreen;
         EventFinished -= NeedShowMapScreen;
         KnowledgeChanged -= OnKnowledgeChange;
+        PlayerDied -= OnPlayerDied;
         _eventManager.EventSelected -= OnEventSelected;
         _eventManager.ChallengePicked -= OnChallengeSelected;
         _heroPick.HeroPicked -= NeedShowMapScreen;
@@ -85,6 +87,11 @@ public class GameEventManager : MonoBehaviour
         _screenManager.ShowMapScreen();
     }
 
+    private void OnPlayerDied()
+    {
+        _screenManager.ShowDieScreen();
+    }
+
     private void NeedShowUgradeScreen()
     {
         _screenManager.ShowUpgradeScreen();
@@ -102,6 +109,6 @@ public class GameEventManager : MonoBehaviour
 
     private void OnKnowledgeChange(int bonus)
     {
-        
+        _player.KnowledgeChange(bonus);
     }
 }
