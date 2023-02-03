@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 
     public void Pay(int sum)
     {
-        if (sum > 0 && sum < _money)
+        if (sum > 0 && sum <= _money)
         {
             _money -= sum;
         }

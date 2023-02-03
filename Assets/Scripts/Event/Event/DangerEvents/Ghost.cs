@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,20 +11,17 @@ public class Ghost : Event
     {
         base.Active(player);
 
-        _eventText.text = $"На холме чернеет остов давно сгоревшей мельницы. " +
-            $"Местные уверены, что она проклята и внутри обитает яростный дух сгоревшего мельника." +
-            $"\nВрочем, ещё они говорят, что мельник при жизни скопил немало золото и спрятал его где-то на своей мельнице. " +
-            $"Вы не первый, кого жажда наживы привела сюда, и несколько белеющих на солнце скелетов, тому подтверждение." +
-            $"\nВаше оружие бесполезно против призрака, но и он не сможет причинить Вам вреда, если ты сохранишь спокойствие в его присутсвии." +
-            $"\nТакже можно провести ритуал очищения, если знаешь как.";
+        TextLoader = TextLoader.Load("Ghost/Active.json");
 
-        _button1.name = "Brave";
-        _button1Text.text = $"Сохранять спокойствие {WillChallenge}";
+        EventText.text = TextLoader.EventText;
 
-        _button2.name = "Ritual";
-        _button2Text.text = $"Провести ритуал {KnowledgeChallenge}";
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text + WillChallenge;
 
-        _button3.gameObject.SetActive(false);
+        Choice2.name = TextLoader.Choice2Name;
+        Choice2Text.text = TextLoader.Choice2Text + KnowledgeChallenge;
+
+        Choice3.gameObject.SetActive(false);
     }
 
     protected override void OnButtonClick(Button button)
@@ -45,13 +40,17 @@ public class Ghost : Event
 
     private void Brave()
     {
-        _challengeText = "От истошного воя призрака веет зогробным холодом, тревожащим душу. Будет непросто сохранить самообладание.";
+        TextLoader = TextLoader.Load("Ghost/Brave.json");
+
+        _challengeText = TextLoader.ChallengeText;
         SelectChallenge(WillChallenge, _willChallengeComplexity, _ghostMoneyReward);
     }
 
     private void Ritual()
     {
-        _challengeText = "Вы достаете из рюкзака свечи и благовония, необходимые для ритуала, но вспомнить слова на древнем языке, необходимые для ритуала, пока не получается.";
+        TextLoader = TextLoader.Load("Ghost/Ritual.json");
+
+        _challengeText = TextLoader.ChallengeText;
         SelectChallenge(KnowledgeChallenge, _knowledgegeChallengeComplexity, _ghostMoneyReward);
     }
 }

@@ -13,23 +13,21 @@ public class Bandits : Event
     {
         base.Active(player);
 
-        _eventText.text = "На лесной дороге виднеется повозка. Подойдя ближе, " +
-            "Вы видете рядом с ней несколько человек тщательно обшаривающих повозку и лежащее рядом с ней тело мужчины." +
-            "\n-Так, так, так, - произносит одна из фигур, заметив Вас. - Сегодня у нас удачный день - добыча идет одна за другой." +
-            "\nБандит хищно улыбается, доставая из-за пояса окровавленный топор. " +
-            "Сегодня они успели поживиться нерадивым путником, возможно у Вас получится избежать драки.";
+        TextLoader = TextLoader.Load("Bandits/Active.json");
 
-        _button1.name = "Fight";
-        _button1Text.text =  $"Сражаться {StrenghtChallenge}";
+        EventText.text = TextLoader.EventText;
 
-        _button2.name = "Talk";
-        _button2Text.text = $"Договориться {WillChallenge}";
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text + StrenghtChallenge;
 
-        _button3.name = "Deal";
-        _button3Text.text = $"Откупиться";
+        Choice2.name = TextLoader.Choice2Name;
+        Choice2Text.text = TextLoader.Choice2Text + WillChallenge;
 
-        if (_player.Money < _banditsDealSum)
-            _button3.interactable= false;
+        Choice3.name = TextLoader.Choice3Name;
+        Choice3Text.text = TextLoader.Choice3Text;
+
+        if (Player.Money < _banditsDealSum)
+            Choice3.interactable= false;
     }
 
     protected override void OnButtonClick(Button button)
@@ -56,26 +54,32 @@ public class Bandits : Event
 
     private void Deal()
     {
-        _player.Pay(_banditsDealSum);
+        Player.Pay(_banditsDealSum);
 
-        _eventText.text = $"Бандиты забируют твои монеты, и скрываются в чащи леса. Вы надетесь, что больше их никогда не увидите.\n\n Эффект: Потеряно {_banditsDealSum} золота";
+        TextLoader = TextLoader.Load("Bandits/Deal.json");
 
-        _button1.name = "Exit";
-        _button1Text.text = $"Продолжить путь";
+        EventText.text = TextLoader.EventText + _banditsDealSum;
 
-        _button1.gameObject.SetActive(false);
-        _button2.gameObject.SetActive(false);
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text;
+
+        Choice2.gameObject.SetActive(false);
+        Choice3.gameObject.SetActive(false);
     }
 
     private void Fight()
     {
-        _challengeText = "Бандиты обнажают своё оружие и бросаются в бой. Пусть им и не хватает мастерства, численное преимущество на их стороне" ;
+        TextLoader = TextLoader.Load("Bandits/Fight.json");
+
+        _challengeText = TextLoader.ChallengeText;
         SelectChallenge(StrenghtChallenge, _strenghtChallengeComplexity, _banditsMoneyReward);
     }
 
     private void Talk()
     {
-        _challengeText = "Бандиты сегодня уже поживились добычей, и их главарь, кажется в хорошем настроении. Он согласен тебя выслушать";
+        TextLoader = TextLoader.Load("Bandits/Talk.json");
+
+        _challengeText = TextLoader.ChallengeText;
         SelectChallenge(WillChallenge, _willChallengeComplexity, _banditsMoneyReward);
     }
 }

@@ -6,19 +6,17 @@ public class Campfire : Event
     {
         base.Active(player);
 
-        _eventText.text = "Вы разбиваете лагерь в тени вековых деревьев, разводите костер и готовитесь к отдыху." +
-            " Удивительно, но на много километров вокруг ни единой души, никто не потреожит Вас.";
+        TextLoader = TextLoader.Load("Campfire/Active.json");
 
-        _button1.name = "Rest";
-        _button1Text.text = $"Выспаться";
+        EventText.text = TextLoader.EventText;
 
-        _button2.name = "UpgradeCard";
-        _button2Text.text = $"Улучшить колоду";
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text;
 
-        _button3.name = "UpgradeHero";
-        _button3Text.text = $"Недоступно";
+        Choice2.name = TextLoader.Choice2Name;
+        Choice2Text.text = TextLoader.Choice2Text;
 
-        _button3.interactable= false;
+        Choice3.interactable= false;
     }
 
     protected override void OnButtonClick(Button button)
@@ -41,13 +39,15 @@ public class Campfire : Event
 
     private void Rest()
     {
-        _eventText.text = "Вы хорошо отдохнули и восстановили часть сил. Пора продолжить путь\n\n Эффект: 1 карта из сброса возвращена в колоду";
+        TextLoader = TextLoader.Load("Campfire/Rest.json");
 
-        _button1.name = "Exit";
-        _button1Text.text = $"Продолжить путь";
+        EventText.text = TextLoader.EventText;
 
-        _button2.gameObject.SetActive(false);
-        _button3.gameObject.SetActive(false);
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text;
+
+        Choice2.gameObject.SetActive(false);
+        Choice3.gameObject.SetActive(false);
 
         GameEventManager.RestoreCardCalled?.Invoke();
     }

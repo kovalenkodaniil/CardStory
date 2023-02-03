@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(EventManager))]
-[RequireComponent(typeof(ChallengeManager))]
-[RequireComponent(typeof(ScreenManager))]
+[RequireComponent(typeof(EventSelecter))]
+[RequireComponent(typeof(ChallengeScreen))]
+[RequireComponent(typeof(ScreenViewer))]
 
 public class GameEventManager : MonoBehaviour
 {
@@ -24,15 +24,15 @@ public class GameEventManager : MonoBehaviour
     [SerializeField] private List<Button> _inventoryButtons;
     [SerializeField] private Player _player;
 
-    private ScreenManager _screenManager;
-    private EventManager _eventManager;
-    private ChallengeManager _challengeManager;
+    private ScreenViewer _screenManager;
+    private EventSelecter _eventManager;
+    private ChallengeScreen _challengeManager;
 
     private void Awake()
     {
-        _eventManager = GetComponent<EventManager>();
-        _challengeManager = GetComponent<ChallengeManager>();
-        _screenManager= GetComponent<ScreenManager>();
+        _eventManager = GetComponent<EventSelecter>();
+        _challengeManager = GetComponent<ChallengeScreen>();
+        _screenManager= GetComponent<ScreenViewer>();
     }
 
     private void OnEnable()

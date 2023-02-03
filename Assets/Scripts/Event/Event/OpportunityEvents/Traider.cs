@@ -14,20 +14,20 @@ public class Traider : Event
 
         _itemForTrade = _items[Random.Range(0, _items.Count)];
 
-        _eventText.text = $"-Здравствуй, друг! Меня зовут Ивор, я - странствующий торговец. В последнее время дела идут неважно, " +
-            $"- произносит мужчина, садясь рядом с вашим костром, - но думаю, у меня есть, что тебе предложить." +
-            $"\nТорговец достает из своего потрепанного рюкзака '{_itemForTrade.Name}'";
+        TextLoader = TextLoader.Load("Traider/Active.json");
 
-        _button1.name = "Buy";
-        _button1Text.text = $"Купить ({_itemForTrade.Cost})";
+        EventText.text = TextLoader.EventText + _itemForTrade.Name;
 
-        _button2.name = "Exit";
-        _button2Text.text = $"Отказаться";
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text + $"({_itemForTrade.Cost})";
 
-        _button3.gameObject.SetActive(false);
+        Choice2.name = TextLoader.Choice2Name;
+        Choice2Text.text = TextLoader.Choice2Text;
 
-        if (_player.Money < _itemForTrade.Cost)
-            _button1.interactable = false;
+        Choice3.gameObject.SetActive(false);
+
+        if (Player.Money < _itemForTrade.Cost)
+            Choice1.interactable = false;
     }
 
     protected override void OnButtonClick(Button button)
@@ -46,15 +46,17 @@ public class Traider : Event
 
     private void Buy()
     {
-        _player.Pay(_itemForTrade.Cost);
+        Player.Pay(_itemForTrade.Cost);
 
-        _eventText.text = "-Честная сделка, друг. Надеюсь мы ещё увидимся, - улыбаясь произносит торговец.\n\n Эффект: Получен предмет";
+        TextLoader = TextLoader.Load("Traider/Buy.json");
 
-        _button1.name = "Exit";
-        _button1Text.text = $"Продолжить путь";
+        EventText.text = TextLoader.EventText + _itemForTrade.Name;
 
-        _button2.gameObject.SetActive(false);
-        _button3.gameObject.SetActive(false);
+        Choice1.name = TextLoader.Choice1Name;
+        Choice1Text.text = TextLoader.Choice1Text;
+
+        Choice2.gameObject.SetActive(false);
+        Choice3.gameObject.SetActive(false);
 
         GameEventManager.ItemTaked?.Invoke(_itemForTrade);
     }

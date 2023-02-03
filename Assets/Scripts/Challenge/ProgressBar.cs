@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] private List<Image> _progressPoints;
-    [SerializeField] private DeckManager _deckManager;
+    [SerializeField] private DeckController _deckManager;
     [SerializeField] private Sprite _progressSprite;
     [SerializeField] private Sprite _defultSprite;
     [SerializeField] private TMP_Text _challengeType;

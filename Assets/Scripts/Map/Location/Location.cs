@@ -3,6 +3,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
+[RequireComponent(typeof(Button))]
 public class Location : MonoBehaviour
 {
     private Image _icon;
