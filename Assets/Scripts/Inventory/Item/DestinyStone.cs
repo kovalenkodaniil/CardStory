@@ -9,7 +9,7 @@ public class DestinyStone : Item
 
     public override void Use()
     {
-        GameEventManager.DestinyStoneChangeCount?.Invoke(-1);
-        GameEventManager.ProgressChanged?.Invoke(_progressBonus, ProgressType);
+        PlayerEvent.DestinyStoneChangeCount?.Invoke(-1);
+        ChallengeScreen.ProgressChanged?.Invoke(_progressBonus, ProgressType);
     }
 }

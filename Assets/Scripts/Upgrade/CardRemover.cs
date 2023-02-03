@@ -19,7 +19,7 @@ public class CardRemover : DeckUpgrader
 
     protected override void OnActionButtonClicked()
     {
-        GameEventManager.RemoveCardCalled?.Invoke(_cards[_currentCardIndex]);
+        Deck.RemoveCardCalled?.Invoke(_cards[_currentCardIndex]);
         _cards.RemoveAt(_currentCardIndex);
     }
 }

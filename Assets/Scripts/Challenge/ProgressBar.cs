@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] private List<Image> _progressPoints;
-    [SerializeField] private DeckController _deckManager;
     [SerializeField] private Sprite _progressSprite;
     [SerializeField] private Sprite _defultSprite;
     [SerializeField] private TMP_Text _challengeType;
@@ -46,12 +45,12 @@ public class ProgressBar : MonoBehaviour
 
     private void OnEnable()
     {
-        GameEventManager.ProgressChanged += OnProgressChanged;
+        ChallengeScreen.ProgressChanged += OnProgressChanged;
     }
 
     private void OnDisable()
     {
-        GameEventManager.ProgressChanged -= OnProgressChanged;
+        ChallengeScreen.ProgressChanged -= OnProgressChanged;
     }
 
     public void Reset()

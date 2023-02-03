@@ -102,6 +102,6 @@ public class Event : MonoBehaviour
     protected void Exit()
     {
         enabled= false;
-        GameEventManager.EventFinished?.Invoke();
+        ScreenEvent.EventFinished?.Invoke();
     }
 }

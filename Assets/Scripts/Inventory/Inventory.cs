@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
-        GameEventManager.ItemTaked += AddItem;
+        PlayerEvent.ItemTaked += AddItem;
     }
 
     private void OnEnable()
@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEventManager.ItemTaked -= AddItem;
+        PlayerEvent.ItemTaked -= AddItem;
     }
 
     private void AddItem(Item item)

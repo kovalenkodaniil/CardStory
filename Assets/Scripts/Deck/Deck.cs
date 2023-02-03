@@ -7,6 +7,10 @@ using UnityEngine.UI;
 
 public class Deck : MonoBehaviour, IPointerClickHandler
 {
+    public static UnityAction RestoreCardCalled;
+    public static UnityAction<Card> RemoveCardCalled;
+    public static UnityAction<Card> AddCardCalled;
+
     [SerializeField] private List<Card> _cards;
     [SerializeField] private List<Card> _trashedCard;
 
@@ -19,13 +23,11 @@ public class Deck : MonoBehaviour, IPointerClickHandler
     private int _clickCount;
     private Card _currentCard;
 
-    public event UnityAction<int, string> CardPlayed;
-
     private void Awake()
     {
-        GameEventManager.RestoreCardCalled += OnRestoreCardCalled;
-        GameEventManager.AddCardCalled += OnAddCardCalled;
-        GameEventManager.RemoveCardCalled += OnRemoveCardCalled;
+        RestoreCardCalled += OnRestoreCardCalled;
+        AddCardCalled += OnAddCardCalled;
+        RemoveCardCalled += OnRemoveCardCalled;
     }
 
     private void OnEnable()
@@ -49,9 +51,9 @@ public class Deck : MonoBehaviour, IPointerClickHandler
 
     private void OnDestroy()
     {
-        GameEventManager.RestoreCardCalled -= OnRestoreCardCalled;
-        GameEventManager.AddCardCalled -= OnAddCardCalled;
-        GameEventManager.RemoveCardCalled -= OnRemoveCardCalled;
+        RestoreCardCalled -= OnRestoreCardCalled;
+        AddCardCalled -= OnAddCardCalled;
+        RemoveCardCalled -= OnRemoveCardCalled;
     }
 
     private void OnRestoreCardCalled()
@@ -126,7 +128,7 @@ public class Deck : MonoBehaviour, IPointerClickHandler
 
     private void OnEffectActiveted(int bonus, string challengeType)
     {
-        CardPlayed?.Invoke(bonus, challengeType);
+        ChallengeScreen.ProgressChanged?.Invoke(bonus, challengeType);
     }
 
     private void OnAddCardCalled(Card card)

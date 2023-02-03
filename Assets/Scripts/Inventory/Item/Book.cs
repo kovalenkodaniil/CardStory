@@ -7,6 +7,6 @@ public class Book : Item
 
     public override void Use()
     {
-        GameEventManager.KnowledgeChanged?.Invoke(_knowledgeBonus);
+        PlayerEvent.KnowledgeChanged?.Invoke(_knowledgeBonus);
     }
 }

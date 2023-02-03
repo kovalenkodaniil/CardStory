@@ -9,6 +9,8 @@ public class ChallengeScreen : MonoBehaviour
     private const string KnowledgeChallenge = "(Испытание знаний)";
     private const string WillChallenge = "(Испытание воли)";
 
+    public static UnityAction<int, string> ProgressChanged;
+
     [SerializeField] private ProgressBar _progressBar;
     [SerializeField] private Button _escapeButton;
     [SerializeField] private Button _finishButton;

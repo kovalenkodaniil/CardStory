@@ -9,6 +9,6 @@ public class CardSeller : DeckUpgrader
 
     protected override void OnActionButtonClicked()
     {
-        GameEventManager.AddCardCalled?.Invoke(_cards[_currentCardIndex]);
+        Deck.AddCardCalled?.Invoke(_cards[_currentCardIndex]);
     }
 }

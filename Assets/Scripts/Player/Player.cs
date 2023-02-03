@@ -20,6 +20,18 @@ public class Player : MonoBehaviour
 
     public event UnityAction MoneyChanged;
 
+    private void OnEnable()
+    {
+        PlayerEvent.DestinyStoneChangeCount += TakeDestinyStone;
+        PlayerEvent.KnowledgeChanged += OnKnowledgeChanged;
+    }
+
+    private void OnDisable()
+    {
+        PlayerEvent.DestinyStoneChangeCount -= TakeDestinyStone;
+        PlayerEvent.KnowledgeChanged -= OnKnowledgeChanged;
+    }
+
     public void Init(int strenght, int knowledge, int will, int money)
     {
         _strenght= strenght;
@@ -34,7 +46,7 @@ public class Player : MonoBehaviour
         _health--;
 
         if (_health == 0)
-            GameEventManager.PlayerDied?.Invoke();
+            PlayerEvent.PlayerDied?.Invoke();
     }
 
     public void TakeReward(int moneyReward) 
@@ -45,7 +57,7 @@ public class Player : MonoBehaviour
         MoneyChanged?.Invoke();
     }
 
-    public void TakeDestinyStone(int count)
+    private void TakeDestinyStone(int count)
     {
         if (count > 0)
             _destinyStone += count;
@@ -64,7 +76,7 @@ public class Player : MonoBehaviour
         MoneyChanged?.Invoke();
     }
 
-    public void KnowledgeChange(int bonus)
+    public void OnKnowledgeChanged(int bonus)
     {
         _knowledge -= bonus;
 

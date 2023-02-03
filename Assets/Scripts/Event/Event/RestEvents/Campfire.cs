@@ -28,7 +28,7 @@ public class Campfire : Event
                 break;
 
             case "UpgradeCard":
-                GameEventManager.UpgradeSreenCalled?.Invoke();
+                ScreenEvent.UpgradeSreenCalled?.Invoke();
                 break;
 
             case "Exit":
@@ -49,6 +49,6 @@ public class Campfire : Event
         Choice2.gameObject.SetActive(false);
         Choice3.gameObject.SetActive(false);
 
-        GameEventManager.RestoreCardCalled?.Invoke();
+        Deck.RestoreCardCalled?.Invoke();
     }
 }

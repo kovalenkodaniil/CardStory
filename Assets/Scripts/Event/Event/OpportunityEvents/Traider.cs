@@ -58,6 +58,6 @@ public class Traider : Event
         Choice2.gameObject.SetActive(false);
         Choice3.gameObject.SetActive(false);
 
-        GameEventManager.ItemTaked?.Invoke(_itemForTrade);
+        PlayerEvent.ItemTaked?.Invoke(_itemForTrade);
     }
 }

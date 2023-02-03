@@ -25,8 +25,8 @@ public class Poison : Event
 
         Player.TakeReward( _moneyFound );
 
-        GameEventManager.DestinyStoneChangeCount?.Invoke(1);
-        GameEventManager.ItemTaked?.Invoke(_itemReward);
+        PlayerEvent.DestinyStoneChangeCount?.Invoke(1);
+        PlayerEvent.ItemTaked?.Invoke(_itemReward);
 
         Choice3.gameObject.SetActive(false);
     }
