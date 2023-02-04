@@ -31,7 +31,7 @@ public class ScreenEvent : MonoBehaviour
     {
         UpgradeSreenCalled += NeedShowUgradeScreen;
         EventFinished += NeedShowMapScreen;
-        PlayerEvent.PlayerDied += OnPlayerDied;
+        Player.PlayerDied += OnPlayerDied;
         _eventManager.EventSelected += OnEventSelected;
         _eventManager.ChallengePicked += OnChallengeSelected;
         _heroPick.HeroPicked += NeedShowMapScreen;
@@ -47,7 +47,7 @@ public class ScreenEvent : MonoBehaviour
     {
         UpgradeSreenCalled -= NeedShowUgradeScreen;
         EventFinished -= NeedShowMapScreen;
-        PlayerEvent.PlayerDied -= OnPlayerDied;
+        Player.PlayerDied -= OnPlayerDied;
         _eventManager.EventSelected -= OnEventSelected;
         _eventManager.ChallengePicked -= OnChallengeSelected;
         _heroPick.HeroPicked -= NeedShowMapScreen;

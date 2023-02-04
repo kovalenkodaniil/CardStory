@@ -13,8 +13,7 @@ public class Item : ScriptableObject
     public string Description => _description;
     public int Cost => _cost;
 
-    public virtual void Use()
+    public virtual void Use(Player player)
     {
-
     }
 }

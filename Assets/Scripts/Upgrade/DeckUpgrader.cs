@@ -43,7 +43,7 @@ public class DeckUpgrader : MonoBehaviour
     {
         _cardCost.text = _currentCardCost.ToString();
 
-        if (_currentCardCost > _player.DestinyStone)
+        if (_currentCardCost > _player.DestinyStone.CurrentValue)
             _actionButton.interactable = false;
         else
             _actionButton.interactable = true;

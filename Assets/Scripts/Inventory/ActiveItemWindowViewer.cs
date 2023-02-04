@@ -8,6 +8,7 @@ public class ActiveItemWindowViewer : MonoBehaviour
     [SerializeField] private TMP_Text _itemDescription;
     [SerializeField] private Button _useButton;
     [SerializeField] private Button _dropButton;
+    [SerializeField] private Player _player;
 
     private InventoryCell _inventoryCell;
     private Item _item;
@@ -37,7 +38,7 @@ public class ActiveItemWindowViewer : MonoBehaviour
 
     private void OnUseButtonClicked()
     {
-        _item.Use();
+        _item.Use(_player);
         _inventoryCell.Reset();
     }
 

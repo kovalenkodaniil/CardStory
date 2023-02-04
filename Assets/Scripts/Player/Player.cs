@@ -1,86 +1,58 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(PlayerStat))]
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int _maxWound;
-    private int _strenght;
-    private int _knowledge;
-    private int _will;
-    private int _money;
-    private int _destinyStone;
-    private int _health;
+    public static UnityAction PlayerDied;
+    public static UnityAction<Item> ItemTaked;
 
-    public int Strenght => _strenght;
-    public int Knowledge => _knowledge;
-    public int Will => _will;
-    public int Money => _money;
-    public int DestinyStone => _destinyStone;
-    public int Health => _health;
+    [SerializeField] private int _maxHealth;
+
+    public PlayerStat Health { get; private set; }
+    public PlayerStat Money { get; private set; }
+    public PlayerStat Knowledge { get; private set; }
+    public PlayerStat Strenght { get; private set; }
+    public PlayerStat Will { get; private set; }
+    public PlayerStat DestinyStone { get; private set; }
 
     public event UnityAction MoneyChanged;
 
+    private void Awake()
+    {
+        Health = new PlayerStat();
+        Money = new PlayerStat();
+        Knowledge = new PlayerStat();
+        Strenght = new PlayerStat();
+        Will = new PlayerStat();
+        DestinyStone = new PlayerStat();
+    }
+
     private void OnEnable()
     {
-        PlayerEvent.DestinyStoneChangeCount += TakeDestinyStone;
-        PlayerEvent.KnowledgeChanged += OnKnowledgeChanged;
+        Health.MinValueAchieved += PlayerDieing;
     }
 
     private void OnDisable()
     {
-        PlayerEvent.DestinyStoneChangeCount -= TakeDestinyStone;
-        PlayerEvent.KnowledgeChanged -= OnKnowledgeChanged;
+        Health.MinValueAchieved += PlayerDieing;
     }
 
     public void Init(int strenght, int knowledge, int will, int money)
     {
-        _strenght= strenght;
-        _knowledge= knowledge;
-        _will=will;
-        _money=money;
-        _health = _maxWound;
+        Health.Init("Health", _maxHealth, 0, _maxHealth);
+        Money.Init("Money", money, 0, int.MaxValue);
+        Knowledge.Init("Knowledge", knowledge, 0, int.MaxValue);
+        Strenght.Init("Strenght", strenght, 0, int.MaxValue);
+        Will.Init("Will", will, 0, int.MaxValue);
+        DestinyStone.Init("DestinyStone", 0, 0, int.MaxValue);
+
+        Debug.Log(Money.CurrentValue);
     }
 
-    public void TakeWound()
+    private void PlayerDieing()
     {
-        _health--;
-
-        if (_health == 0)
-            PlayerEvent.PlayerDied?.Invoke();
-    }
-
-    public void TakeReward(int moneyReward) 
-    {
-        if (moneyReward > 0)
-            _money += moneyReward;
-
-        MoneyChanged?.Invoke();
-    }
-
-    private void TakeDestinyStone(int count)
-    {
-        if (count > 0)
-            _destinyStone += count;
-
-        if (_destinyStone < 0)
-            _destinyStone = 0;
-    }
-
-    public void Pay(int sum)
-    {
-        if (sum > 0 && sum <= _money)
-        {
-            _money -= sum;
-        }
-
-        MoneyChanged?.Invoke();
-    }
-
-    public void OnKnowledgeChanged(int bonus)
-    {
-        _knowledge -= bonus;
-
-        if (_knowledge < 0)
-            _knowledge = 0;
+        PlayerDied?.Invoke();
     }
 }

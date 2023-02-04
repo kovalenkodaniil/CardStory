@@ -26,7 +26,7 @@ public class Bandits : Event
         Choice3.name = TextLoader.Choice3Name;
         Choice3Text.text = TextLoader.Choice3Text;
 
-        if (Player.Money < _banditsDealSum)
+        if (Player.Money.CurrentValue < _banditsDealSum)
             Choice3.interactable= false;
     }
 
@@ -54,7 +54,7 @@ public class Bandits : Event
 
     private void Deal()
     {
-        Player.Pay(_banditsDealSum);
+        Player.Money.Decrease(_banditsDealSum);
 
         TextLoader = TextLoader.Load("Bandits/Deal.json");
 

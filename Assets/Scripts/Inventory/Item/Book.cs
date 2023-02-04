@@ -5,8 +5,8 @@ public class Book : Item
 {
     [SerializeField] private int _knowledgeBonus;
 
-    public override void Use()
+    public override void Use(Player player)
     {
-        PlayerEvent.KnowledgeChanged?.Invoke(_knowledgeBonus);
+        player.Knowledge.Increase(_knowledgeBonus);
     }
 }

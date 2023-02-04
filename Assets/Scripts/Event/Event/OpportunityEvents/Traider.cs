@@ -26,7 +26,7 @@ public class Traider : Event
 
         Choice3.gameObject.SetActive(false);
 
-        if (Player.Money < _itemForTrade.Cost)
+        if (Player.Money.CurrentValue < _itemForTrade.Cost)
             Choice1.interactable = false;
     }
 
@@ -46,7 +46,7 @@ public class Traider : Event
 
     private void Buy()
     {
-        Player.Pay(_itemForTrade.Cost);
+        Player.Money.Decrease(_itemForTrade.Cost);
 
         TextLoader = TextLoader.Load("Traider/Buy.json");
 
@@ -58,6 +58,6 @@ public class Traider : Event
         Choice2.gameObject.SetActive(false);
         Choice3.gameObject.SetActive(false);
 
-        PlayerEvent.ItemTaked?.Invoke(_itemForTrade);
+        Player.ItemTaked?.Invoke(_itemForTrade);
     }
 }

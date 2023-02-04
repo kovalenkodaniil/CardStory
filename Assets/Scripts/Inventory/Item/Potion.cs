@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New item", menuName = "Item/Create new potion", order = 51)]
 public class Potion : Item
 {
-    public override void Use()
+    public override void Use(Player player)
     {
         Deck.RestoreCardCalled?.Invoke();
     }

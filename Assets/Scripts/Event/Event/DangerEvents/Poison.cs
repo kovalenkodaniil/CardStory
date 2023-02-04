@@ -23,10 +23,10 @@ public class Poison : Event
         Choice2.name = TextLoader.Choice2Name;
         Choice2Text.text = TextLoader.Choice2Text + KnowledgeChallenge;
 
-        Player.TakeReward( _moneyFound );
+        Player.Money.Increase( _moneyFound );
 
-        PlayerEvent.DestinyStoneChangeCount?.Invoke(1);
-        PlayerEvent.ItemTaked?.Invoke(_itemReward);
+        Player.DestinyStone.Increase(1);
+        Player.ItemTaked?.Invoke(_itemReward);
 
         Choice3.gameObject.SetActive(false);
     }

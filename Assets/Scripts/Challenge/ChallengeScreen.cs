@@ -8,6 +8,7 @@ public class ChallengeScreen : MonoBehaviour
     private const string StrenghtChallenge = "(Испытание силы)";
     private const string KnowledgeChallenge = "(Испытание знаний)";
     private const string WillChallenge = "(Испытание воли)";
+    private int EscapeDamage = 1;
 
     public static UnityAction<int, string> ProgressChanged;
 
@@ -48,15 +49,15 @@ public class ChallengeScreen : MonoBehaviour
         switch (challengeType)
         {
             case StrenghtChallenge:
-                startProgress = player.Strenght;
+                startProgress = player.Strenght.CurrentValue;
                 break;
 
             case KnowledgeChallenge:
-                startProgress = player.Knowledge;
+                startProgress = player.Knowledge.CurrentValue;
                 break;
 
             case WillChallenge:
-                startProgress = player.Will;
+                startProgress = player.Will.CurrentValue;
                 break;
         }
 
@@ -65,14 +66,14 @@ public class ChallengeScreen : MonoBehaviour
 
     private void OnEscaped()
     {
-        _player.TakeWound();
+        _player.Health.Decrease(EscapeDamage);
         ShowFinishCsreen();
     }
 
     private void OnProgressBarFilled()
     {
         _isWining = true;
-        _player.TakeReward(_moneyReward);
+        _player.Money.Increase(_moneyReward);
         ShowFinishCsreen();
     }
 

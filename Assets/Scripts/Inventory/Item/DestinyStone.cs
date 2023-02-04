@@ -7,9 +7,10 @@ public class DestinyStone : Item
 
     [SerializeField] private int _progressBonus;
 
-    public override void Use()
+    public override void Use(Player player)
     {
-        PlayerEvent.DestinyStoneChangeCount?.Invoke(-1);
+        player.DestinyStone.Increase(1);
+
         ChallengeScreen.ProgressChanged?.Invoke(_progressBonus, ProgressType);
     }
 }

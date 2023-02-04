@@ -16,7 +16,7 @@ public class Campfire : Event
         Choice2.name = TextLoader.Choice2Name;
         Choice2Text.text = TextLoader.Choice2Text;
 
-        Choice3.interactable= false;
+        Choice3.gameObject.SetActive(false);
     }
 
     protected override void OnButtonClick(Button button)
